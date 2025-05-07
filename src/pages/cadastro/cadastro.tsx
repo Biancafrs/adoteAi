@@ -1,6 +1,86 @@
+import { useState, ChangeEvent, FormEvent } from "react";
 import { Link } from "react-router-dom";
+import Modal from "react-modal";
+import { toast } from "react-hot-toast";
+
+// Necessário para acessibilidade
+Modal.setAppElement("#root");
 
 const Cadastro = () => {
+  const [formData, setFormData] = useState({
+    nome: "",
+    sobrenome: "",
+    email: "",
+    tel: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value.replace(/\D/g, "");
+    if (value.length > 11) value = value.slice(0, 11);
+
+    if (value.length > 10) {
+      value = value.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
+    } else if (value.length > 6) {
+      value = value.replace(/(\d{2})(\d{4})(\d{0,4})/, "($1) $2-$3");
+    } else if (value.length > 2) {
+      value = value.replace(/(\d{2})(\d{0,5})/, "($1) $2");
+    } else {
+      value = value.replace(/(\d*)/, "($1");
+    }
+
+    setFormData((prev) => ({ ...prev, tel: value }));
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+
+    if (formData.password !== formData.confirmPassword) {
+      toast.error("As senhas não coincidem.");
+      return;
+    }
+
+    const body = {
+      email: formData.email,
+      password: formData.password,
+      nome: formData.nome,
+      sobrenome: formData.sobrenome,
+      telefone: formData.tel,
+    };
+
+    try {
+      const response = await fetch("http://localhost:3000/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Erro ao registrar");
+      }
+
+      toast.success("Cadastro realizado com sucesso!");
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        toast.error("Erro ao Cadastrar usuário");
+        console.log("erro ao cadastrar:", error);
+      } else {
+        toast.error("Erro desconhecido ao cadastrar.");
+      }
+    }
+  };
+
   return (
     <div className="flex h-screen bg-[#f6f1e9]">
       <div className="w-1/2 flex flex-col justify-center items-center px-10">
@@ -14,31 +94,38 @@ const Cadastro = () => {
           </Link>
         </p>
 
-        <form className="w-full max-w-md space-y-4">
+        <form onSubmit={handleSubmit} className="w-full max-w-md space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label htmlFor="name" className="block mb-1 text-sm font-medium">
+              <label htmlFor="nome" className="block mb-1 text-sm font-medium">
                 Nome
               </label>
               <input
                 type="text"
-                id="name"
-                name="name"
+                id="nome"
+                name="nome"
+                value={formData.nome}
+                onChange={handleChange}
                 required
                 placeholder="Digite seu nome..."
                 className="w-full p-3 border border-gray-300 rounded-md bg-white"
               />
             </div>
             <div>
-              <label htmlFor="name" className="block mb-1 text-sm font-medium">
+              <label
+                htmlFor="sobrenome"
+                className="block mb-1 text-sm font-medium"
+              >
                 Sobrenome
               </label>
               <input
                 type="text"
-                id="name"
-                name="name"
+                id="sobrenome"
+                name="sobrenome"
+                value={formData.sobrenome}
+                onChange={handleChange}
                 required
-                placeholder="Digite seu nome..."
+                placeholder="Digite seu sobrenome..."
                 className="w-full p-3 border border-gray-300 rounded-md bg-white"
               />
             </div>
@@ -52,55 +139,78 @@ const Cadastro = () => {
               type="email"
               id="email"
               name="email"
+              value={formData.email}
+              onChange={handleChange}
               placeholder="Digite seu email..."
               required
               className="w-full p-3 border border-gray-300 rounded-md bg-white "
             />
           </div>
+
           <div>
             <label htmlFor="tel" className="block mb-1 text-sm font-medium ">
               Telefone
             </label>
             <input
               type="tel"
-              id="email"
+              id="tel"
               name="tel"
-              placeholder="Digite seu telefone..."
+              value={formData.tel}
+              onChange={handlePhoneChange}
+              placeholder="(11) 91234-5678"
               required
-              className="w-full p-3 border border-gray-300 rounded-md bg-white "
+              className="w-full p-3 border border-gray-300 rounded-md bg-white"
             />
           </div>
+
           <div>
             <label
               htmlFor="password"
-              className="block mb-1 text-sm font-medium "
+              className="block mb-1 text-sm font-medium"
             >
               Senha
             </label>
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               id="password"
               name="password"
+              value={formData.password}
+              onChange={handleChange}
               required
               placeholder="Digite sua senha..."
               className="w-full p-3 border border-gray-300 rounded-md bg-white"
             />
           </div>
+
           <div>
             <label
-              htmlFor="password"
-              className="block mb-1 text-sm font-medium "
+              htmlFor="confirmPassword"
+              className="block mb-1 text-sm font-medium"
             >
               Confirme sua senha
             </label>
             <input
-              type="password"
-              id="password"
-              name="password"
+              type={showPassword ? "text" : "password"}
+              id="confirmPassword"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
               required
               placeholder="Digite sua senha novamente..."
               className="w-full p-3 border border-gray-300 rounded-md bg-white"
             />
+          </div>
+
+          <div className="flex items-center space-x-2">
+            <input
+              type="checkbox"
+              id="showPassword"
+              checked={showPassword}
+              onChange={() => setShowPassword(!showPassword)}
+            />
+            <label htmlFor="showPassword" className="text-sm">
+              Mostrar senhas
+            </label>
           </div>
 
           <button
