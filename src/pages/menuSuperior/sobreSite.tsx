@@ -1,5 +1,3 @@
-import React from "react";
-
 const SobreSite = () => {
   return (
     <div className="min-h-screen bg-[#fdf8f2] flex flex-col items-center justify-center p-6">
@@ -13,7 +11,7 @@ const SobreSite = () => {
       </div>
       <div className="max-w-4xl bg-white border border-gray-300 rounded-lg p-8 shadow-md">
         <h1 className="text-2xl font-bold text-center text-[#4b2d2d] mb-4">
-          Sobre no nosso site
+          Sobre nosso site
         </h1>
         <p className="text-gray-800 text-justify mb-6">
           O Adote-aí é um site dedicado à adoção de animais, conectando pessoas

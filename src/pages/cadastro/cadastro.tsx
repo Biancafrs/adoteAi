@@ -1,9 +1,8 @@
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { Link } from "react-router-dom";
 import Modal from "react-modal";
 import { toast } from "react-hot-toast";
 
-// Necessário para acessibilidade
 Modal.setAppElement("#root");
 
 const Cadastro = () => {
@@ -17,6 +16,20 @@ const Cadastro = () => {
   });
 
   const [showPassword, setShowPassword] = useState(false);
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const images = [
+    "./src/assets/img-login.svg",
+    "./src/assets/cachorro1.png",
+    "./src/assets/cachorro2.png",
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => prevIndex + 1);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -224,9 +237,9 @@ const Cadastro = () => {
 
       <div className="w-1/2 bg-center bg-cover bg-no-repeat flex items-center justify-center">
         <img
-          src="./src/assets/img-login.svg"
+          src={images[currentImageIndex]}
           alt="Imagem de cadastro"
-          className="h-full w-full p-5 rounded-lg"
+          className="h-full w-full p-5 rounded-lg object-contain transition duration-500 ease-in-out"
         />
       </div>
     </div>
