@@ -8,16 +8,14 @@ function Login() {
         <img
           src="./src/assets/img-login.svg"
           alt="Imagem de login"
-          className=" h-full w-full  p-5 "
+          className=" h-full w-full p-5 "
         />
       </div>
 
       <div className="w-1/2 flex flex-col justify-center items-center bg-[#f6f1e9]">
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-2 mb-2">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-r from-pink-300 to-blue-300 flex items-center justify-center text-xl">
-              🐾
-            </div>
+            <img className="h-10 w-10" src="src/assets/logo.svg" alt="" />
             <h1 className="text-4xl font-bold text-gray-800">Adote-Ai</h1>
           </div>
           <p className="text-sm text-gray-600">
