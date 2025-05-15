@@ -5,9 +5,9 @@ import Cadastro from "./pages/cadastro/cadastro";
 import { createRoot } from "react-dom/client";
 import "./global.css";
 import { Toaster } from "react-hot-toast";
-import SobreSite from "./pages/menuSuperior/sobreSite.tsx";
-import InformacoesPessoais from "./pages/menuSuperior/informacoesPessoais.tsx";
-import SegurancaSenha from "./pages/menuSuperior/segurancaSenha.tsx";
+import SobreSite from "./pages/menuSuperior/sobreSite";
+import InformacoesPessoais from "./pages/menuSuperior/informacoesPessoais";
+import SegurancaSenha from "./pages/menuSuperior/segurancaSenha";
 
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Pencil } from "lucide-react";
+import Header from "../../components/header/header";
 
 type FormFields = {
   nome: string;
@@ -41,8 +42,9 @@ const InformacoesPessoais = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#fdf8f2] flex flex-col items-center justify-center p-6">
-      <div className="absolute top-20 left-50">
+    <div className="min-h-screen bg-[#fdf8f2] flex flex-col items-center justify-center p-6 pt-20 ">
+      <Header />
+      <div className="absolute top-20 left-50 pt-20">
         <a
           href="/"
           className="bg-[#4b2d2d] text-white px-4 py-2 rounded-lg shadow-md font-bold hover:bg-[#3a2323]"
@@ -57,7 +59,7 @@ const InformacoesPessoais = () => {
 
         <div className="flex flex-col items-center mb-6">
           <div className="w-20 h-20 rounded-full border border-[#4b2d2d] bg-gray-100 flex items-center justify-center">
-            {}
+            { }
           </div>
           <span className="text-sm text-gray-700 mt-2">
             Edite sua foto de perfil

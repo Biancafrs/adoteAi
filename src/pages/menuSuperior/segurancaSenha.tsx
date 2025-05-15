@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Header from "../../components/header/header";
 
 const SegurancaSenha = () => {
   const [senhaAtual, setSenhaAtual] = useState("");
@@ -25,8 +26,9 @@ const SegurancaSenha = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#fdf8f2] flex flex-col items-center justify-center p-6">
-      <div className="absolute top-20 left-10">
+    <div className="min-h-screen bg-[#fdf8f2] flex flex-col items-center justify-center p-6 pt-20">
+      <Header />
+      <div className="absolute top-20 left-10 pt-20">
         <a
           href="/"
           className="bg-[#4b2d2d] text-white px-4 py-2 rounded-lg shadow-md font-bold hover:bg-[#3a2323]"
