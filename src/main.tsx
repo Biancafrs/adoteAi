@@ -8,6 +8,7 @@ import { Toaster } from "react-hot-toast";
 import SobreSite from "./pages/menuSuperior/sobreSite";
 import InformacoesPessoais from "./pages/menuSuperior/informacoesPessoais";
 import SegurancaSenha from "./pages/menuSuperior/segurancaSenha";
+import Publicacoes from "./pages/feed/publicacoes";
 
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -19,6 +20,7 @@ createRoot(document.getElementById("root")!).render(
         <Route path="/sobre" element={<SobreSite />} />
         <Route path="/informacoesPessoais" element={<InformacoesPessoais />} />
         <Route path="/segurancaSenha" element={<SegurancaSenha />} />
+        <Route path="/publicacoes" element={<Publicacoes />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

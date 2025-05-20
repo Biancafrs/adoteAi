@@ -55,12 +55,16 @@ function Login() {
           <div className="text-right text-sm text-gray-500 hover:underline cursor-pointer">
             Esqueceu sua senha ?
           </div>
-          <button
-            type="submit"
-            className="w-full p-3 bg-[#5C3A32] text-white rounded-md"
-          >
-            Login
-          </button>
+          <div className="mt-10">
+            <Link to="/publicacoes">
+              <button
+                type="submit"
+                className="w-full p-3 bg-[#5C3A32] text-white rounded-md"
+              >
+                Login
+              </button>
+            </Link>
+          </div>
           <Link to="/register">
             <button
               type="button"
