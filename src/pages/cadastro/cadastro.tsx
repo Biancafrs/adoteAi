@@ -1,7 +1,9 @@
 import { useState, useEffect, ChangeEvent, FormEvent } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Modal from "react-modal";
 import { toast } from "react-hot-toast";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { firebaseApp } from "../../firebase";
 
 Modal.setAppElement("#root");
 
@@ -23,6 +25,8 @@ const Cadastro = () => {
     "./src/assets/cachorro1.png",
     "./src/assets/cachorro2.png",
   ];
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -62,36 +66,35 @@ const Cadastro = () => {
       return;
     }
 
-    const body = {
-      email: formData.email,
-      password: formData.password,
-      nome: formData.nome,
-      sobrenome: formData.sobrenome,
-      telefone: formData.tel,
-    };
-
     try {
-      const response = await fetch("http://localhost:3000/auth/register", {
-        method: "POST",
+      const auth = getAuth(firebaseApp);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        formData.email,
+        formData.password
+      );
+      // Após criar o usuário, envie os dados extras para o backend (opcional)
+      const idToken = await userCredential.user.getIdToken();
+      localStorage.setItem("token", idToken);
+
+      // Envie dados extras para o backend
+      await fetch("http://localhost:3000/auth/me", {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${idToken}`,
         },
-        body: JSON.stringify(body),
+        body: JSON.stringify({
+          nome: formData.nome,
+          sobrenome: formData.sobrenome,
+          telefone: formData.tel,
+        }),
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Erro ao registrar");
-      }
-
       toast.success("Cadastro realizado com sucesso!");
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        toast.error("Erro ao Cadastrar usuário");
-        console.log("erro ao cadastrar:", error);
-      } else {
-        toast.error("Erro desconhecido ao cadastrar.");
-      }
+      navigate("/publicacoes");
+    } catch (error) {
+      toast.error("Erro ao cadastrar usuário");
     }
   };
 

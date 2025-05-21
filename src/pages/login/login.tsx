@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { firebaseApp } from "../../firebase";
 
 function Login() {
   const images = [
@@ -8,6 +10,9 @@ function Login() {
     "src/assets/cachorro2.png",
   ];
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -15,6 +20,23 @@ function Login() {
     }, 3000);
     return () => clearInterval(interval);
   }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const auth = getAuth(firebaseApp);
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const idToken = await userCredential.user.getIdToken();
+      localStorage.setItem("token", idToken);
+      navigate("/publicacoes");
+    } catch (error) {
+      alert("Erro ao fazer login");
+    }
+  };
 
   return (
     <div className="flex h-screen bg-[#f6f1e9]">
@@ -41,29 +63,34 @@ function Login() {
           Faça seu login
         </h2>
 
-        <form className="w-full max-w-lg mt-10 space-y-4">
+        <form
+          className="w-full max-w-lg mt-10 space-y-4"
+          onSubmit={handleSubmit}
+        >
           <input
             type="email"
             placeholder="Email"
             className="w-full p-3 border border-gray-300 rounded-md bg-white"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <input
             type="password"
             placeholder="Senha"
             className="w-full p-3 mt-5 border border-gray-300 rounded-md bg-white"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <div className="text-right text-sm text-gray-500 hover:underline cursor-pointer">
             Esqueceu sua senha ?
           </div>
           <div className="mt-10">
-            <Link to="/publicacoes">
-              <button
-                type="submit"
-                className="w-full p-3 bg-[#5C3A32] text-white rounded-md"
-              >
-                Login
-              </button>
-            </Link>
+            <button
+              type="submit"
+              className="w-full p-3 bg-[#5C3A32] text-white rounded-md"
+            >
+              Login
+            </button>
           </div>
           <Link to="/register">
             <button
