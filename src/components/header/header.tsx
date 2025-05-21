@@ -136,6 +136,16 @@ export default function Header() {
                       >
                         Sobre
                       </Button>
+                      <Button
+                        onClick={() => {
+                          localStorage.clear();
+                          handleNavigate("/");
+                        }}
+                        fullWidth
+                        sx={buttonStyles}
+                      >
+                        Sair
+                      </Button>
                     </MenuList>
                   </ClickAwayListener>
                 </Paper>

@@ -9,6 +9,7 @@ import SobreSite from "./pages/menuSuperior/sobreSite";
 import InformacoesPessoais from "./pages/menuSuperior/informacoesPessoais";
 import SegurancaSenha from "./pages/menuSuperior/segurancaSenha";
 import Publicacoes from "./pages/feed/publicacoes";
+import ProtectedRoute from "./utils/ProtectedRoute";
 
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -17,10 +18,38 @@ createRoot(document.getElementById("root")!).render(
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Cadastro />} />
-        <Route path="/sobre" element={<SobreSite />} />
-        <Route path="/informacoesPessoais" element={<InformacoesPessoais />} />
-        <Route path="/segurancaSenha" element={<SegurancaSenha />} />
-        <Route path="/publicacoes" element={<Publicacoes />} />
+        <Route
+          path="/sobre"
+          element={
+            <ProtectedRoute>
+              <SobreSite />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/informacoesPessoais"
+          element={
+            <ProtectedRoute>
+              <InformacoesPessoais />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/segurancaSenha"
+          element={
+            <ProtectedRoute>
+              <SegurancaSenha />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/publicacoes"
+          element={
+            <ProtectedRoute>
+              <Publicacoes />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

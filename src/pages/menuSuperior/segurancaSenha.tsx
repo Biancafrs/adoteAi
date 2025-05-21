@@ -12,7 +12,7 @@ const SegurancaSenha = () => {
     setErro("");
 
     if (novaSenha.length < 8) {
-      setErro("A nova senha deve ter pelo menos 8 caracteres.");
+      setErro("A nova senha deve ter pelo menos 6 caracteres.");
       return;
     }
 
@@ -49,7 +49,7 @@ const SegurancaSenha = () => {
           caracteres especiais.
         </p>
         <p className="text-gray-800 text-sm mb-6">
-          Certifique-se de que a nova senha tenha pelo menos 8 caracteres e seja
+          Certifique-se de que a nova senha tenha pelo menos 6 caracteres e seja
           única, evitando reutilizar senhas antigas. Após a criação, confirme a
           nova senha e salve-a em um local seguro para futuras referências.
         </p>
