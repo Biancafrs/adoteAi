@@ -34,7 +34,10 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 w-full h-20 bg-[#563838] px-4 flex items-center justify-between">
       <div className="flex items-center gap-4">
-        <div className="w-14 h-12 flex">
+        <div
+          className="w-14 h-12 flex cursor-pointer"
+          onClick={() => navigate("/publicacoes")}
+        >
           <img src="/src/assets/logo.svg" alt="Logo" />
         </div>
         <div className="relative shadow-2xl rounded-2xl w-96 h-12 bg-[#DCCDBA]">
