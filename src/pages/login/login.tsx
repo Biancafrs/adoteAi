@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { firebaseApp } from "../../firebase";
+import toast from "react-hot-toast";
 
 function Login() {
   const images = [
@@ -34,7 +35,7 @@ function Login() {
       localStorage.setItem("token", idToken);
       navigate("/publicacoes");
     } catch (error) {
-      alert("Erro ao fazer login");
+      toast.error("Usuário não autenticado.");
     }
   };
 
@@ -81,6 +82,28 @@ function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+
+          <div className="flex items-center mt-2">
+            <input
+              id="show-password"
+              type="checkbox"
+              className="mr-2"
+              onChange={(e) => {
+                const passwordInput = document.querySelector<HTMLInputElement>(
+                  'input[type="password"], input[type="text"][placeholder="Senha"]'
+                );
+                if (passwordInput) {
+                  passwordInput.type = e.target.checked ? "text" : "password";
+                }
+              }}
+            />
+            <label
+              htmlFor="show-password"
+              className="text-sm text-gray-600 cursor-pointer"
+            >
+              Mostrar senha
+            </label>
+          </div>
           <div className="text-right text-sm text-gray-500 hover:underline cursor-pointer">
             Esqueceu sua senha ?
           </div>
@@ -88,6 +111,11 @@ function Login() {
             <button
               type="submit"
               className="w-full p-3 bg-[#5C3A32] text-white rounded-md"
+              disabled={!email || !password}
+              style={{
+                opacity: !email || !password ? 0.5 : 1,
+                cursor: !email || !password ? "not-allowed" : "pointer",
+              }}
             >
               Login
             </button>
