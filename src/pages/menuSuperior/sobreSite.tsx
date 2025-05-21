@@ -7,7 +7,7 @@ const SobreSite = () => {
       <div className="container mx-auto px-4 py-6 relative">
         <div className="mb-4">
           <a
-            href="/"
+            href="/publicacoes"
             className="inline-block bg-[#4b2d2d] text-white px-4 py-2 rounded-lg shadow-md font-bold hover:bg-[#3a2323]"
           >
             Voltar
@@ -19,14 +19,14 @@ const SobreSite = () => {
             Sobre nosso site
           </h1>
           <p className="text-gray-800 text-justify mb-6">
-            O Adote-aí é um site dedicado à adoção de animais, conectando pessoas
-            interessadas em adotar pets com organizações e abrigos que abrigam
-            animais disponíveis para adoção. A plataforma oferece informações
-            detalhadas sobre cada animal, incluindo fotos, descrições e dados
-            sobre suas necessidades específicas, facilitando o processo de adoção
-            para os usuários. O objetivo principal do site é promover a adoção
-            responsável e aumentar a visibilidade dos animais que aguardam por um
-            lar acolhedor.
+            O Adote-aí é um site dedicado à adoção de animais, conectando
+            pessoas interessadas em adotar pets com organizações e abrigos que
+            abrigam animais disponíveis para adoção. A plataforma oferece
+            informações detalhadas sobre cada animal, incluindo fotos,
+            descrições e dados sobre suas necessidades específicas, facilitando
+            o processo de adoção para os usuários. O objetivo principal do site
+            é promover a adoção responsável e aumentar a visibilidade dos
+            animais que aguardam por um lar acolhedor.
           </p>
 
           <div className="flex justify-center gap-6 mb-6">
@@ -49,8 +49,8 @@ const SobreSite = () => {
 
           <div className="text-sm text-gray-900">
             <p>
-              <strong>Desenvolvido por:</strong> João Pedro Carvalho Diniz, Daniel
-              Junior Dias Avelino, Wanderson Batista da Silva, Andralyssa
+              <strong>Desenvolvido por:</strong> João Pedro Carvalho Diniz,
+              Daniel Junior Dias Avelino, Wanderson Batista da Silva, Andralyssa
               Rodrigues Pereira, Vitória Machado Silva, Lucas Borges de Souza,
               Lucas Xavier Diniz Ribeiro, Bianca Ferreira Siqueira, Gabriel
               Henrique de Oliveira Campos

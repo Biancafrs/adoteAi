@@ -35,7 +35,7 @@ function Login() {
       localStorage.setItem("token", idToken);
       navigate("/publicacoes");
     } catch (error) {
-      toast.error("Usuário não autenticado.");
+      toast.error("Erro ao fazer login. Verifique suas credenciais.");
     }
   };
 

@@ -113,7 +113,7 @@ const InformacoesPessoais = () => {
       <Header />
       <div className="absolute top-20 left-50 pt-20">
         <a
-          href="/"
+          href="/publicacoes"
           className="bg-[#4b2d2d] text-white px-4 py-2 rounded-lg shadow-md font-bold hover:bg-[#3a2323]"
         >
           Voltar
@@ -151,7 +151,9 @@ const InformacoesPessoais = () => {
                     autoFocus
                   />
                 ) : (
-                  <span className={formData[info.key] ? "" : "text-gray-400 italic"}>
+                  <span
+                    className={formData[info.key] ? "" : "text-gray-400 italic"}
+                  >
                     {formData[info.key] || "Não preenchido"}
                   </span>
                 )}

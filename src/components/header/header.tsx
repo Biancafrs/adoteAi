@@ -111,6 +111,7 @@ export default function Header() {
                         onClick={() => handleNavigate("/")}
                         fullWidth
                         sx={buttonStyles}
+                        disabled
                       >
                         Mensagens
                       </Button>
@@ -156,5 +157,9 @@ const buttonStyles = {
   boxShadow: "0 4px 6px rgba(0,0,0,0.2)",
   "&:hover": {
     backgroundColor: "#472828",
+  },
+  "&.Mui-disabled": {
+    backgroundColor: "#b0b0b0",
+    color: "#fff",
   },
 };

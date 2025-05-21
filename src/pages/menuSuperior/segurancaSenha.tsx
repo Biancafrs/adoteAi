@@ -30,7 +30,7 @@ const SegurancaSenha = () => {
       <Header />
       <div className="absolute top-20 left-10 pt-20">
         <a
-          href="/"
+          href="/publicacoes"
           className="bg-[#4b2d2d] text-white px-4 py-2 rounded-lg shadow-md font-bold hover:bg-[#3a2323]"
         >
           Voltar
