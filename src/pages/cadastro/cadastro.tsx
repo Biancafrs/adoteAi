@@ -73,26 +73,32 @@ const Cadastro = () => {
         formData.email,
         formData.password
       );
-      // Após criar o usuário, envie os dados extras para o backend (opcional)
       const idToken = await userCredential.user.getIdToken();
       localStorage.setItem("token", idToken);
 
-      // Envie dados extras para o backend
-      await fetch("http://localhost:3000/auth/me", {
-        method: "PUT",
+      const response = await fetch("http://localhost:3000/auth/register", {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${idToken}`,
         },
         body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
           nome: formData.nome,
           sobrenome: formData.sobrenome,
           telefone: formData.tel,
         }),
       });
 
-      toast.success("Cadastro realizado com sucesso!");
-      navigate("/publicacoes");
+      if (!response.ok) {
+        throw new Error("Erro ao registrar usuário no backend");
+      }
+
+      const userData = await response.json();
+
+      toast.success("Cadastro realizado com sucesso! Faça login para continuar.");
+      navigate("/", { state: { registeredUser: userData } });
     } catch (error) {
       toast.error("Erro ao cadastrar usuário");
     }
