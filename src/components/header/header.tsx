@@ -111,12 +111,11 @@ export default function Header() {
                   <ClickAwayListener onClickAway={handleClose}>
                     <MenuList autoFocusItem={open} disablePadding>
                       <Button
-                        onClick={() => handleNavigate("/")}
+                        onClick={() => handleNavigate("/publicacoes")}
                         fullWidth
                         sx={buttonStyles}
-                        disabled
                       >
-                        Mensagens
+                        Publicações
                       </Button>
                       <Button
                         onClick={() => handleNavigate("/informacoesPessoais")}
