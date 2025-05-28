@@ -1,9 +1,10 @@
-import { useState, ChangeEvent, FormEvent } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect, ChangeEvent, FormEvent } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Modal from "react-modal";
 import { toast } from "react-hot-toast";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { firebaseApp } from "../../firebase";
 
-// Necessário para acessibilidade
 Modal.setAppElement("#root");
 
 const Cadastro = () => {
@@ -17,6 +18,23 @@ const Cadastro = () => {
   });
 
   const [showPassword, setShowPassword] = useState(false);
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const images = [
+    "./src/assets/img-login.svg",
+    "./src/assets/cachorro1.png",
+    "./src/assets/cachorro2.png",
+  ];
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [images.length]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -48,36 +66,41 @@ const Cadastro = () => {
       return;
     }
 
-    const body = {
-      email: formData.email,
-      password: formData.password,
-      nome: formData.nome,
-      sobrenome: formData.sobrenome,
-      telefone: formData.tel,
-    };
-
     try {
+      const auth = getAuth(firebaseApp);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        formData.email,
+        formData.password
+      );
+      const idToken = await userCredential.user.getIdToken();
+      localStorage.setItem("token", idToken);
+
       const response = await fetch("http://localhost:3000/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${idToken}`,
         },
-        body: JSON.stringify(body),
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+          nome: formData.nome,
+          sobrenome: formData.sobrenome,
+          telefone: formData.tel,
+        }),
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Erro ao registrar");
+        throw new Error("Erro ao registrar usuário no backend");
       }
 
-      toast.success("Cadastro realizado com sucesso!");
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        toast.error("Erro ao Cadastrar usuário");
-        console.log("erro ao cadastrar:", error);
-      } else {
-        toast.error("Erro desconhecido ao cadastrar.");
-      }
+      const userData = await response.json();
+
+      toast.success("Cadastro realizado com sucesso! Faça login para continuar.");
+      navigate("/", { state: { registeredUser: userData } });
+    } catch (error) {
+      toast.error("Erro ao cadastrar usuário");
     }
   };
 
@@ -224,9 +247,9 @@ const Cadastro = () => {
 
       <div className="w-1/2 bg-center bg-cover bg-no-repeat flex items-center justify-center">
         <img
-          src="./src/assets/img-login.svg"
+          src={images[currentImageIndex]}
           alt="Imagem de cadastro"
-          className="h-full w-full p-5 rounded-lg"
+          className="h-full w-full p-5 rounded-lg object-contain transition duration-500 ease-in-out"
         />
       </div>
     </div>
