@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { firebaseApp } from "../../firebase";
@@ -13,7 +13,9 @@ function Login() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const passwordInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -37,6 +39,10 @@ function Login() {
     } catch (error) {
       toast.error("Erro ao fazer login. Verifique suas credenciais.");
     }
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -76,7 +82,8 @@ function Login() {
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
-            type="password"
+            ref={passwordInputRef}
+            type={showPassword ? "text" : "password"}
             placeholder="Senha"
             className="w-full p-3 mt-5 border border-gray-300 rounded-md bg-white"
             value={password}
@@ -88,14 +95,8 @@ function Login() {
               id="show-password"
               type="checkbox"
               className="mr-2"
-              onChange={(e) => {
-                const passwordInput = document.querySelector<HTMLInputElement>(
-                  'input[type="password"], input[type="text"][placeholder="Senha"]'
-                );
-                if (passwordInput) {
-                  passwordInput.type = e.target.checked ? "text" : "password";
-                }
-              }}
+              checked={showPassword}
+              onChange={togglePasswordVisibility}
             />
             <label
               htmlFor="show-password"
