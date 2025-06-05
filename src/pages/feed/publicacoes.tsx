@@ -311,7 +311,7 @@ const Publicacoes: React.FC = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50">
+    <div className="min-h-screen bg-[#FDF8F2] ">
       <Header />
 
       {/* Modal de Imagens */}
@@ -419,259 +419,350 @@ const Publicacoes: React.FC = () => {
       )}
 
       {/* Hero Section */}
-      <div className="pt-30 pb-8 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="flex justify-center items-center gap-4 mb-6">
-            <span className="text-6xl">🐾</span>
-            <h1 className="text-4xl md:text-5xl font-bold text-amber-800">
-              Publicações de Adoção
-            </h1>
-          </div>
-          <p className="text-xl text-amber-700 max-w-2xl mx-auto">
-            Conecte corações, transforme vidas. Cada publicação é uma
-            oportunidade de amor.
-          </p>
-        </div>
-      </div>
-
-      <div className="max-w-4xl mx-auto px-4 pb-8">
-        {/* Formulário de Criação */}
-        <div className="bg-white rounded-2xl shadow-xl border-2 border-amber-800 mb-8 overflow-hidden transform transition-all hover:shadow-2xl hover:-translate-y-1">
-          <div className="p-6">
-            <div className="flex items-center gap-4 mb-6">
-              <div className="w-14 h-14 bg-amber-800 rounded-full flex items-center justify-center text-white text-2xl shadow-lg">
-                🐾
-              </div>
-              <div>
-                <h2 className="text-2xl font-bold text-amber-800">
-                  Criar Nova Publicação
-                </h2>
-                <p className="text-amber-600">
-                  Ajude um amiguinho a encontrar um novo lar 🏠
-                </p>
-              </div>
+      <div>
+        <div className="pt-30 pb-8 px-4">
+          <div className="max-w-4xl mx-auto text-center mb-10">
+            <div className="flex justify-center items-center gap-4 mb-6">
+              <img src="/src/assets/logo.svg" alt="Logo" />
+              <h1 className="text-4xl md:text-5xl font-bold text-amber-800">
+                Publicações de Adoção
+              </h1>
             </div>
+            <p className="text-xl text-amber-600 font-semibold max-w-2xl mx-auto">
+              Conecte corações, transforme vidas. Cada publicação é uma
+              oportunidade de amor.
+            </p>
+          </div>
 
-            <textarea
-              className="w-full p-4 border-2 border-amber-200 rounded-xl resize-none focus:border-amber-800 focus:outline-none bg-amber-50 text-lg"
-              rows={4}
-              placeholder="Conte sobre este amiguinho especial... Qual é a personalidade dele? Que cuidados precisa? O que o torna único?"
-              value={postText}
-              onChange={(e) => setPostText(e.target.value)}
-              disabled={isLoading}
-            />
-
-            {/* Preview das Imagens */}
-            {previewUrls.length > 0 && (
-              <div className="mt-6">
-                <p className="text-amber-800 font-semibold mb-4">
-                  Fotos selecionadas ({previewUrls.length}/5)
-                </p>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                  {previewUrls.map((url, idx) => (
-                    <div key={idx} className="relative group">
-                      <div className="aspect-square bg-gray-100 rounded-xl overflow-hidden shadow-md group-hover:shadow-lg transition-shadow">
-                        <img
-                          src={url}
-                          alt={`preview-${idx + 1}`}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <button
-                        onClick={() => removeImage(idx)}
-                        disabled={isLoading}
-                        className="absolute -top-2 -right-2 bg-red-500 hover:bg-red-600 text-white rounded-full w-8 h-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-lg"
-                      >
-                        ×
-                      </button>
+          <div className="max-w-6xl mx-auto px-4 pb-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Coluna Principal - Formulário e Publicações */}
+            <div className="lg:col-span-2">
+              {/* Formulário de Criação */}
+              <div className="bg-white rounded-2xl shadow-xl border-2 border-amber-800 mb-8 overflow-hidden transform transition-all hover:shadow-2xl hover:-translate-y-1">
+                <div className="p-6">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-14 h-14 bg-[#563838] rounded-full flex items-center justify-center text-white text-2xl shadow-lg">
+                      🐾
                     </div>
-                  ))}
+                    <div>
+                      <h2 className="text-2xl font-bold text-amber-800">
+                        Criar Nova Publicação
+                      </h2>
+                      <p className="text-[#563838">
+                        Ajude um amiguinho a encontrar um novo lar 🏠
+                      </p>
+                    </div>
+                  </div>
+
+                  <textarea
+                    className="w-full p-4 border-2 border-[#828588] rounded-xl resize-none focus:border-amber-800 focus:outline-none bg-white text-lg"
+                    rows={4}
+                    placeholder="Conte sobre este amiguinho especial... Qual é a personalidade dele? Que cuidados precisa? O que o torna único?"
+                    value={postText}
+                    onChange={(e) => setPostText(e.target.value)}
+                    disabled={isLoading}
+                  />
+
+                  {/* Preview das Imagens */}
+                  {previewUrls.length > 0 && (
+                    <div className="mt-6">
+                      <p className="text-[#563838] font-semibold mb-4">
+                        Fotos selecionadas ({previewUrls.length}/5)
+                      </p>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                        {previewUrls.map((url, idx) => (
+                          <div key={idx} className="relative group">
+                            <div className="aspect-square bg-gray-100 rounded-xl overflow-hidden shadow-md group-hover:shadow-lg transition-shadow">
+                              <img
+                                src={url}
+                                alt={`preview-${idx + 1}`}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                            <button
+                              onClick={() => removeImage(idx)}
+                              disabled={isLoading}
+                              className="absolute -top-2 -right-2 bg-red-500 hover:bg-red-600 text-white rounded-full w-8 h-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-lg"
+                            >
+                              ×
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Alertas */}
+                  {showError && (
+                    <div className="mt-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl">
+                      É preciso adicionar uma descrição ou fotos do
+                      animalzinho.
+                    </div>
+                  )}
+
+                  {showSuccess && (
+                    <div className="mt-4 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-xl">
+                      Publicação criada com sucesso! 🎉
+                    </div>
+                  )}
+                </div>
+
+                <div className="bg-[#F0F8FF] px-6 py-4 flex justify-between items-center">
+                  <div>
+                    <input
+                      id="upload"
+                      type="file"
+                      multiple
+                      accept="image/*,video/*"
+                      onChange={handleImageUpload}
+                      disabled={isLoading}
+                      className="hidden"
+                    />
+                    <label
+                      htmlFor="upload"
+                      className={`inline-flex items-center gap-2 px-4 py-2 border-2 border-amber-800 text-amber-800 rounded-xl font-semibold cursor-pointer hover:bg-[#c5ccd1] transition-colors ${
+                        isLoading || selectedFiles.length >= 5
+                          ? "opacity-50 cursor-not-allowed"
+                          : ""
+                      }`}
+                    >
+                      <span className="text-xl">📷</span>
+                      {selectedFiles.length >= 5
+                        ? "Limite atingido"
+                        : "Adicionar Fotos"}
+                    </label>
+                  </div>
+
+                  <button
+                    onClick={handlePublish}
+                    disabled={
+                      (!postText.trim() && !selectedFiles.length) || isLoading
+                    }
+                    className="bg-[#563838] hover:bg-amber-900 disabled:bg-gray-400 text-white px-6 py-2 rounded-xl font-semibold flex items-center gap-2 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 disabled:transform-none"
+                  >
+                    {isLoading ? (
+                      <>
+                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        Publicando...
+                      </>
+                    ) : (
+                      <>
+                        <span>✈️</span>
+                        Publicar Adoção
+                      </>
+                    )}
+                  </button>
                 </div>
               </div>
-            )}
 
-            {/* Alertas */}
-            {showError && (
-              <div className="mt-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl">
-                É preciso adicionar uma descrição ou fotos do animalzinho.
-              </div>
-            )}
+              {/* Lista de Publicações */}
+              <div>
+                {isLoadingPosts ? (
+                  <div>
+                    {[...Array(3)].map((_, index) => (
+                      <PublicationSkeleton key={index} />
+                    ))}
+                  </div>
+                ) : publications.length > 0 ? (
+                  <div>
+                    <h2 className="text-2xl font-bold text-amber-800 text-center mb-6">
+                      Animais Esperando por Você ❤️
+                    </h2>
+                    {publications.map((pub, index) => (
+                      <div
+                        key={pub.id}
+                        className="bg-white rounded-2xl shadow-lg border border-amber-100 mb-6 overflow-hidden transform transition-all hover:shadow-xl hover:-translate-y-1"
+                      >
+                        <div className="p-6">
+                          {/* Header do Post */}
+                          <div className="flex items-center gap-4 mb-4">
+                            <div className="w-12 h-12 bg-[#563838] rounded-full flex items-center justify-center text-white font-bold text-lg shadow-md"></div>
+                            <div className="flex-1">
+                              <h3 className="font-bold text-amber-800 text-lg">
+                                {pub.authorName}
+                              </h3>
+                              <p className="text-amber-600 text-sm">
+                                {formatDate(pub.createdAt)}
+                              </p>
+                            </div>
+                            <span className="bg-[#563838] text-white px-3 py-1 rounded-full text-sm font-semibold">
+                              Adoção
+                            </span>
+                          </div>
 
-            {showSuccess && (
-              <div className="mt-4 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-xl">
-                Publicação criada com sucesso! 🎉
-              </div>
-            )}
-          </div>
+                          {/* Conteúdo do Post */}
+                          <div className="mb-4">
+                            <p className="text-gray-700 text-lg leading-relaxed mb-4 whitespace-pre-line">
+                              {pub.text}
+                            </p>
 
-          <div className="bg-amber-50 px-6 py-4 flex justify-between items-center">
-            <div>
-              <input
-                id="upload"
-                type="file"
-                multiple
-                accept="image/*,video/*"
-                onChange={handleImageUpload}
-                disabled={isLoading}
-                className="hidden"
-              />
-              <label
-                htmlFor="upload"
-                className={`inline-flex items-center gap-2 px-4 py-2 border-2 border-amber-800 text-amber-800 rounded-xl font-semibold cursor-pointer hover:bg-amber-100 transition-colors ${
-                  isLoading || selectedFiles.length >= 5
-                    ? "opacity-50 cursor-not-allowed"
-                    : ""
-                }`}
-              >
-                <span className="text-xl">📷</span>
-                {selectedFiles.length >= 5
-                  ? "Limite atingido"
-                  : "Adicionar Fotos"}
-              </label>
-            </div>
-
-            <button
-              onClick={handlePublish}
-              disabled={
-                (!postText.trim() && !selectedFiles.length) || isLoading
-              }
-              className="bg-amber-800 hover:bg-amber-900 disabled:bg-gray-400 text-white px-6 py-2 rounded-xl font-semibold flex items-center gap-2 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 disabled:transform-none"
-            >
-              {isLoading ? (
-                <>
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                  Publicando...
-                </>
-              ) : (
-                <>
-                  <span>✈️</span>
-                  Publicar Adoção
-                </>
-              )}
-            </button>
-          </div>
-        </div>
-
-        {/* Lista de Publicações */}
-        <div>
-          {isLoadingPosts ? (
-            <div>
-              {[...Array(3)].map((_, index) => (
-                <PublicationSkeleton key={index} />
-              ))}
-            </div>
-          ) : publications.length > 0 ? (
-            <div>
-              <h2 className="text-2xl font-bold text-amber-800 text-center mb-6">
-                Animais Esperando por Você ❤️
-              </h2>
-              {publications.map((pub, index) => (
-                <div
-                  key={pub.id}
-                  className="bg-white rounded-2xl shadow-lg border border-amber-100 mb-6 overflow-hidden transform transition-all hover:shadow-xl hover:-translate-y-1"
-                >
-                  <div className="p-6">
-                    {/* Header do Post */}
-                    <div className="flex items-center gap-4 mb-4">
-                      <div className="w-12 h-12 bg-amber-800 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-md"></div>
-                      <div className="flex-1">
-                        <h3 className="font-bold text-amber-800 text-lg">
-                          {pub.authorName}
-                        </h3>
-                        <p className="text-amber-600 text-sm">
-                          {formatDate(pub.createdAt)}
-                        </p>
-                      </div>
-                      <span className="bg-amber-800 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                        Adoção
-                      </span>
-                    </div>
-
-                    {/* Conteúdo do Post */}
-                    <div className="mb-4">
-                      <p className="text-gray-700 text-lg leading-relaxed mb-4">
-                        {pub.text}
-                      </p>
-
-                      {/* Galeria de Mídia */}
-                      {pub.media && pub.media.length > 0 && (
-                        <div
-                          className={`grid gap-3 ${
-                            pub.media.length === 1
-                              ? "grid-cols-1"
-                              : pub.media.length === 2
-                              ? "grid-cols-2"
-                              : "grid-cols-2 md:grid-cols-3"
-                          }`}
-                        >
-                          {pub.media.map((url, idx) => {
-                            const mediaKey = `${pub.id}-${
-                              typeof url === "string" ? url : idx
-                            }`;
-                            return (
+                            {/* Galeria de Mídia */}
+                            {pub.media && pub.media.length > 0 && (
                               <div
-                                key={mediaKey}
-                                className="aspect-square bg-gray-100 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all cursor-pointer transform hover:scale-105"
-                                onClick={() => openImageModal(pub.media, idx)}
+                                className={`grid gap-3 ${
+                                  pub.media.length === 1
+                                    ? "grid-cols-1"
+                                    : pub.media.length === 2
+                                    ? "grid-cols-2"
+                                    : "grid-cols-2 md:grid-cols-3"
+                                }`}
                               >
-                                <img
-                                  src={url}
-                                  alt={`pub-${pub.id}-${idx}`}
-                                  className="w-full h-full object-cover"
-                                  onError={(e) => {
-                                    console.error(
-                                      "Erro ao carregar imagem:",
-                                      url
-                                    );
-                                    (
-                                      e.target as HTMLImageElement
-                                    ).style.display = "none";
-                                  }}
-                                />
+                                {pub.media.map((url, idx) => {
+                                  const mediaKey = `${pub.id}-${
+                                    typeof url === "string" ? url : idx
+                                  }`;
+                                  return (
+                                    <div
+                                      key={mediaKey}
+                                      className="aspect-square bg-gray-100 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all cursor-pointer transform hover:scale-105"
+                                      onClick={() =>
+                                        openImageModal(pub.media, idx)
+                                      }
+                                    >
+                                      <img
+                                        src={url}
+                                        alt={`pub-${pub.id}-${idx}`}
+                                        className="w-full h-full object-cover"
+                                        onError={(e) => {
+                                          console.error(
+                                            "Erro ao carregar imagem:",
+                                            url
+                                          );
+                                          (
+                                            e.target
+                                          ).style.display = "none";
+                                        }}
+                                      />
+                                    </div>
+                                  );
+                                })}
                               </div>
-                            );
-                          })}
+                            )}
+                          </div>
+
+                          {/* Actions */}
+                          <div className="flex justify-between items-center pt-4 border-t border-gray-100">
+                            <div className="flex gap-4">
+                              <button className="flex items-center gap-2 text-amber-600 hover:text-amber-800 transition-colors">
+                                <span>❤️</span>
+                                <span className="text-sm">{pub.likes || 0}</span>
+                              </button>
+                              <button className="flex items-center gap-2 text-amber-600 hover:text-amber-800 transition-colors">
+                                <span>💬</span>
+                                <span className="text-sm">
+                                  {pub.comments || 0}
+                                </span>
+                              </button>
+                              <button className="flex items-center gap-2 text-amber-600 hover:text-amber-800 transition-colors">
+                                <span>📤</span>
+                              </button>
+                            </div>
+
+                            <button className="bg-[#563838] hover:bg-amber-900 text-white px-4 py-2 rounded-xl font-semibold shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
+                              💝 Quero Adotar
+                            </button>
+                          </div>
                         </div>
-                      )}
-                    </div>
-
-                    {/* Actions */}
-                    <div className="flex justify-between items-center pt-4 border-t border-gray-100">
-                      <div className="flex gap-4">
-                        <button className="flex items-center gap-2 text-amber-600 hover:text-amber-800 transition-colors">
-                          <span>❤️</span>
-                          <span className="text-sm">{pub.likes || 0}</span>
-                        </button>
-                        <button className="flex items-center gap-2 text-amber-600 hover:text-amber-800 transition-colors">
-                          <span>💬</span>
-                          <span className="text-sm">{pub.comments || 0}</span>
-                        </button>
-                        <button className="flex items-center gap-2 text-amber-600 hover:text-amber-800 transition-colors">
-                          <span>📤</span>
-                        </button>
                       </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-16">
+                    <div className="text-8xl mb-4">🐾</div>
+                    <h2 className="text-2xl font-bold bg-[#563838] mb-2">
+                      Nenhuma publicação ainda
+                    </h2>
+                    <p className="text-amber-600">
+                      Seja o primeiro a compartilhar um amiguinho em busca de um
+                      lar! 🏠
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
 
-                      <button className="bg-amber-800 hover:bg-amber-900 text-white px-4 py-2 rounded-xl font-semibold shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
-                        💝 Quero Adotar
-                      </button>
+            {/* Coluna Lateral - ONGs Parceiras */}
+            <div className="lg:col-span-1">
+              {/* Card de Cadastro */}
+              <div className="bg-[#563838] text-white rounded-2xl shadow-lg p-6 mb-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <img 
+                   src="/src/assets/DOG2.avif" alt="Logo"
+                  className="text-2xl w-26 rounded-full h-20"></img>
+                  <div>
+                    <h3 className="font-bold text-lg">Tem animal precisando de um lar?</h3>
+                    <p className="text-amber-100 text-sm hover:cursor-pointer">Cadastre aqui</p>
+                  </div>
+                </div>
+                <button className="bg-white text-amber-800 px-4 py-2 rounded-lg font-semibold hover:bg-amber-50 transition-colors w-full hover:cursor-pointer">
+                  Cadastrar
+                </button>
+              </div>
+
+              {/* ONGs Parceiras */}
+              <div className="bg-white rounded-2xl shadow-lg p-6 mb-6">
+                <h3 className="text-2xl font-bold text-amber-800 mb-6">ONGs Parceiras</h3>
+                <div className="space-y-6">
+                  <div className="flex items-start gap-3">
+                    <img 
+                    src="/src/assets/ong1.png" alt="Logo"
+                    className="w-12 h-12 bg-[#563838] rounded-full flex items-center justify-center text-white font-bold flex-shrink-0 bg-cover">
+                    </img>
+                    <div className="flex-1">
+                      <h4 className="font-bold text-amber-800">Santuário Jardim de São Francisco</h4>
+                      <p className="text-sm text-amber-600 mb-1">Localização:R. Ja, S/N - Ilha, Itajubá - MG, 37517-000</p>
+                      <p className="text-sm text-gray-600">Especialidade: Cães</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <img
+                      src="/src/assets/RESGACTI.jpg" alt="Logo"
+                    className="w-12 h-12 bg-[#563838] rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">
+                    </img>
+                    <div className="flex-1">
+                      <h4 className="font-bold text-amber-800">RESGACTI</h4>
+                      <p className="text-sm text-amber-600 mb-1">Localização: Itajubá, MG</p>
+                      <p className="text-sm text-gray-600">Especialidade: Resgates</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <img
+                     src="/src/assets/DOG1.jpg" alt="Logo"
+                    className="w-12 h-12 bg-[#563838] rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">
+                    
+                    </img>
+                    <div className="flex-1">
+                      <h4 className="font-bold text-amber-800">Lar dos Bichos</h4>
+                      <p className="text-sm text-amber-600 mb-1">Localização: Belo Horizonte, MG</p>
+                      <p className="text-sm text-gray-600 mb-1">Animais disponíveis: 12</p>
+                      <p className="text-sm text-gray-600">Especialidade: Animais idosos</p>
                     </div>
                   </div>
                 </div>
-              ))}
+              </div>
+
+              {/* Dica Importante */}
+              <div className="bg-[#F0F8FF] border-l-4 border-[#563838] p-4 rounded-lg">
+                <div className="flex items-start gap-2">
+                  <span className="text-amber-500 text-lg">💡</span>
+                  <div>
+                    <h4 className="font-bold text-amber-800 mb-2">Dica importante</h4>
+                    <p className="text-sm  leading-relaxed">
+                      Antes de adotar, certifique-se de ter tempo, espaço e recursos 
+                      para cuidar do animal. A adoção é um compromisso para toda a 
+                      vida!
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
-          ) : (
-            <div className="text-center py-16">
-              <div className="text-8xl mb-4">🐾</div>
-              <h2 className="text-2xl font-bold text-amber-700 mb-2">
-                Nenhuma publicação ainda
-              </h2>
-              <p className="text-amber-600">
-                Seja o primeiro a compartilhar um amiguinho em busca de um lar!
-                🏠
-              </p>
-            </div>
-          )}
+          </div>
         </div>
+        </div>
+        
       </div>
     </div>
   );
