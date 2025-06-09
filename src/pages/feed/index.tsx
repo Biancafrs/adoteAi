@@ -18,13 +18,20 @@ const PublicacoesPage: React.FC = () => {
     handleLike,
     addPublication,
     updatePublication,
-    currentUserId
+    currentUserId,
   } = usePublications();
 
   const imageModal = useImageModal();
 
   const [commentsModalOpen, setCommentsModalOpen] = useState(false);
-  const [selectedPublicationId, setSelectedPublicationId] = useState<string | null>(null);
+  const [selectedPublicationId, setSelectedPublicationId] = useState<
+    string | null
+  >(null);
+  const [pubs, setPubs] = useState(publications);
+
+  React.useEffect(() => {
+    setPubs(publications);
+  }, [publications]);
 
   const openCommentsModal = (publicationId: string) => {
     setSelectedPublicationId(publicationId);
@@ -34,6 +41,10 @@ const PublicacoesPage: React.FC = () => {
   const closeCommentsModal = () => {
     setCommentsModalOpen(false);
     setSelectedPublicationId(null);
+  };
+
+  const handleDeletePublication = (id: string) => {
+    setPubs((prev) => prev.filter((pub) => pub.id !== id));
   };
 
   return (
@@ -87,13 +98,14 @@ const PublicacoesPage: React.FC = () => {
                 <div className="max-w-3xl mx-auto">
                   <PublicationForm onPublicationCreated={addPublication} />
                   <PublicationList
-                    publications={publications}
+                    publications={pubs}
                     isLoading={isLoading}
                     currentUserId={currentUserId}
                     likingPosts={likingPosts}
                     onLike={handleLike}
                     onComment={openCommentsModal}
                     onImageClick={imageModal.openModal}
+                    onDeletePublication={handleDeletePublication}
                   />
                 </div>
               </div>

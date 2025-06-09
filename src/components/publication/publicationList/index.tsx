@@ -1,7 +1,7 @@
-import React from 'react';
-import { Publicacoes } from '../../../utils/models/publicacao.model';
-import PublicationCard from '../publicationCard';
-import PublicationSkeleton from './PublicationSkeleton';
+import React from "react";
+import { Publicacoes } from "../../../utils/models/publicacao.model";
+import PublicationCard from "../publicationCard";
+import PublicationSkeleton from "./PublicationSkeleton";
 
 interface PublicationListProps {
   publications: Publicacoes[];
@@ -11,6 +11,7 @@ interface PublicationListProps {
   onLike: (id: string) => void;
   onComment: (id: string) => void;
   onImageClick: (images: string[], index: number) => void;
+  onDeletePublication?: (id: string) => void;
 }
 
 const PublicationList: React.FC<PublicationListProps> = ({
@@ -20,7 +21,8 @@ const PublicationList: React.FC<PublicationListProps> = ({
   likingPosts,
   onLike,
   onComment,
-  onImageClick
+  onImageClick,
+  onDeletePublication,
 }) => {
   if (isLoading) {
     return (
@@ -60,6 +62,7 @@ const PublicationList: React.FC<PublicationListProps> = ({
           onLike={onLike}
           onComment={onComment}
           onImageClick={onImageClick}
+          onDelete={onDeletePublication}
         />
       ))}
     </div>

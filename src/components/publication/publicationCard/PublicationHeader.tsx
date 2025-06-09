@@ -1,11 +1,15 @@
-import React from 'react';
-import { Publicacoes } from '../../../utils/models/publicacao.model';
+import React from "react";
+import { Publicacoes } from "../../../utils/models/publicacao.model";
 
 interface PublicationHeaderProps {
   publication: Publicacoes;
+  onDelete?: () => void;
+  currentUserId?: string;
 }
 
-const PublicationHeader: React.FC<PublicationHeaderProps> = ({ publication }) => {
+const PublicationHeader: React.FC<PublicationHeaderProps> = ({
+  publication,
+}) => {
   const formatDate = (dateString: string) => {
     try {
       const date = new Date(dateString);
@@ -42,9 +46,11 @@ const PublicationHeader: React.FC<PublicationHeaderProps> = ({ publication }) =>
           {formatDate(publication.createdAt)}
         </p>
       </div>
-      <span className="bg-[#563838] text-white px-3 py-1 rounded-full text-sm font-semibold">
-        Adoção
-      </span>
+      <div className="flex items-center gap-1">
+        <span className="bg-[#563838] text-white px-3 py-1 rounded-full text-sm font-semibold">
+          Adoção
+        </span>
+      </div>
     </div>
   );
 };
