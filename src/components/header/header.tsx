@@ -8,13 +8,14 @@ import {
   Paper,
   Popper,
 } from "@mui/material";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useNavigate } from "react-router-dom";
 
 export default function Header() {
   const [searchTerm, setSearchTerm] = useState("");
   const [open, setOpen] = useState(false);
+  const [userPhoto, setUserPhoto] = useState<string>("");
   const anchorRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
@@ -31,22 +32,40 @@ export default function Header() {
     setOpen(false);
   };
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      fetch("http://localhost:3000/auth/me", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.user?.profilePhoto) {
+            setUserPhoto(data.user.profilePhoto);
+          }
+        })
+        .catch(() => {
+          // Silenciar erro se não conseguir carregar
+        });
+    }
+  }, []);
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 w-full h-20 bg-[#563838] px-4 flex items-center justify-between">
-      <div className="flex items-center gap-4">
+    <header className="fixed top-0 left-0 right-0 z-50 w-full h-20 bg-[#563838] px-6 flex items-center justify-between">
+      <div className="flex items-center gap-6">
         <div
           className="w-14 h-12 flex cursor-pointer"
           onClick={() => navigate("/publicacoes")}
         >
           <img src="/src/assets/logo.svg" alt="Logo" />
         </div>
-        <div className="relative shadow-2xl rounded-2xl w-96 h-12 bg-[#DCCDBA]">
+        <div className="relative shadow-2xl rounded-2xl w-[500px] h-12 bg-[#DCCDBA]">
           <input
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Pesquisar"
-            className="w-full h-full pl-12 pr-4 bg-transparent outline-none rounded-2xl"
+            placeholder="Pesquisar animais para adoção..."
+            className="w-full h-full pl-12 pr-4 bg-transparent outline-none rounded-2xl text-lg"
           />
           <SearchIcon className="absolute left-4 top-1/2 transform -translate-y-1/2" />
         </div>
@@ -54,13 +73,12 @@ export default function Header() {
           style={{
             boxShadow: "0 25px 50px -12px rgb(0 0 0 / 0.25)",
             borderRadius: "1rem",
-            width: "6rem",
+            width: "7rem",
             height: "2.5rem",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
             backgroundColor: "#DCCDBA",
             color: "black",
+            fontSize: "1rem",
+            fontWeight: "500"
           }}
         >
           Adoção
@@ -68,7 +86,17 @@ export default function Header() {
       </div>
 
       <div className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-full border border-[#4b2d2d] bg-gray-100 flex items-center justify-center cursor-pointer hover:bg-gray-200 transition-colors"></div>
+        <div className="w-12 h-12 rounded-full border border-[#4b2d2d] bg-gray-100 flex items-center justify-center cursor-pointer hover:bg-gray-200 transition-colors overflow-hidden">
+          {userPhoto ? (
+            <img
+              src={userPhoto}
+              alt="Foto de perfil"
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <div className="text-[#4b2d2d] text-xl">👤</div>
+          )}
+        </div>
         <Box>
           <div
             ref={anchorRef}

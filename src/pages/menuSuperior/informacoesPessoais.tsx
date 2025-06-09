@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Pencil } from "lucide-react";
 import Header from "../../components/header/header";
 import { toast } from "react-hot-toast";
+import ProfilePhotoUpload from "../../components/profile/profilePhoto";
 
 type FormFields = {
   nome: string;
@@ -30,6 +31,7 @@ const InformacoesPessoais = () => {
   });
   const [token, setToken] = useState("");
   const [loading, setLoading] = useState(true);
+  const [profilePhoto, setProfilePhoto] = useState<string>('');
 
   const fields: { label: string; key: keyof FormFields }[] = [
     { label: "Nome", key: "nome" },
@@ -63,6 +65,10 @@ const InformacoesPessoais = () => {
             ...prev,
             ...data.user,
           }));
+          // IMPORTANTE: Definir a foto de perfil separadamente
+          if (data.user.profilePhoto) {
+            setProfilePhoto(data.user.profilePhoto);
+          }
         }
       })
       .catch(() => {
@@ -99,11 +105,42 @@ const InformacoesPessoais = () => {
     }
   };
 
+  const handlePhotoUpdate = (newPhotoUrl: string) => {
+    setProfilePhoto(newPhotoUrl);
+
+    setFormData(prev => ({
+      ...prev,
+      profilePhoto: newPhotoUrl
+    }));
+
+    toast.success('Foto de perfil atualizada!');
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#fdf8f2]">
         <Header />
-        <span>Carregando...</span>
+        <div className="max-w-2xl w-full bg-white border border-gray-300 rounded-lg p-8 shadow-md">
+          <div className="h-8 bg-gray-200 rounded animate-pulse mb-6 mx-auto w-48"></div>
+
+          <div className="flex flex-col items-center mb-6">
+            <div className="w-32 h-32 bg-gray-200 rounded-full animate-pulse"></div>
+          </div>
+
+          <div className="space-y-4">
+            {Array.from({ length: 9 }).map((_, index) => (
+              <div key={index} className="flex justify-between items-center border-b pb-1 border-gray-300">
+                <div className="h-4 bg-gray-200 rounded animate-pulse w-24"></div>
+                <div className="flex items-center gap-2">
+                  <div className="h-4 bg-gray-200 rounded animate-pulse w-32"></div>
+                  <div className="w-4 h-4 bg-gray-200 rounded animate-pulse"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 h-10 bg-gray-200 rounded-lg animate-pulse w-full"></div>
+        </div>
       </div>
     );
   }
@@ -125,12 +162,10 @@ const InformacoesPessoais = () => {
         </h1>
 
         <div className="flex flex-col items-center mb-6">
-          <div className="w-20 h-20 rounded-full border border-[#4b2d2d] bg-gray-100 flex items-center justify-center">
-            {/* Foto de perfil futura */}
-          </div>
-          <span className="text-sm text-gray-700 mt-2">
-            Edite sua foto de perfil
-          </span>
+          <ProfilePhotoUpload
+            currentPhoto={profilePhoto}
+            onPhotoUpdate={handlePhotoUpdate}
+          />
         </div>
 
         <div className="space-y-4">

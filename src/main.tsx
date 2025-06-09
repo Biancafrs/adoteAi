@@ -8,7 +8,7 @@ import { Toaster } from "react-hot-toast";
 import SobreSite from "./pages/menuSuperior/sobreSite";
 import InformacoesPessoais from "./pages/menuSuperior/informacoesPessoais";
 import SegurancaSenha from "./pages/menuSuperior/segurancaSenha";
-import Publicacoes from "./pages/feed/publicacoes";
+import PublicacoesPage from "./pages/feed";
 import ProtectedRoute from "./utils/ProtectedRoute";
 
 createRoot(document.getElementById("root")!).render(
@@ -46,7 +46,7 @@ createRoot(document.getElementById("root")!).render(
           path="/publicacoes"
           element={
             <ProtectedRoute>
-              <Publicacoes />
+              <PublicacoesPage />
             </ProtectedRoute>
           }
         />

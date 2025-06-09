@@ -34,7 +34,16 @@ function Login() {
         password
       );
       const idToken = await userCredential.user.getIdToken();
+      try {
+        const payload = JSON.parse(atob(idToken.split('.')[1]));
+      } catch (decodeError) {
+        console.error('❌ Erro ao decodificar token:', decodeError);
+      }
+
       localStorage.setItem("token", idToken);
+
+      const savedToken = localStorage.getItem("token");
+
       navigate("/publicacoes");
     } catch (error) {
       toast.error("Erro ao fazer login. Verifique suas credenciais.");
