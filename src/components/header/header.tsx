@@ -51,7 +51,10 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 w-full h-20 bg-[#563838] px-6 flex items-center justify-between">
+    <header
+      className="fixed top-0 left-0 right-0 w-full h-20 bg-[#563838] px-6 flex items-center justify-between"
+      style={{ zIndex: 50 }}
+    >
       <div className="flex items-center gap-6">
         <div
           className="w-14 h-12 flex cursor-pointer"
@@ -70,6 +73,7 @@ export default function Header() {
           <SearchIcon className="absolute left-4 top-1/2 transform -translate-y-1/2" />
         </div>
         <Button
+          onClick={() => navigate("/animals")}
           style={{
             boxShadow: "0 25px 50px -12px rgb(0 0 0 / 0.25)",
             borderRadius: "1rem",
@@ -121,6 +125,7 @@ export default function Header() {
             placement="bottom-end"
             transition
             disablePortal
+            style={{ zIndex: 100 }}
           >
             {({ TransitionProps }) => (
               <Grow {...TransitionProps}>

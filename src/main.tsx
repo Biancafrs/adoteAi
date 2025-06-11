@@ -10,6 +10,7 @@ import InformacoesPessoais from "./pages/menuSuperior/informacoesPessoais";
 import SegurancaSenha from "./pages/menuSuperior/segurancaSenha";
 import PublicacoesPage from "./pages/feed";
 import ProtectedRoute from "./utils/ProtectedRoute";
+import AnimalsPage from "./pages/animais/animais";
 
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -17,6 +18,7 @@ createRoot(document.getElementById("root")!).render(
       <Toaster position="top-right" reverseOrder={false} />
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/animals" element={<AnimalsPage />} />
         <Route path="/register" element={<Cadastro />} />
         <Route
           path="/sobre"
